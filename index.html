@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Abandoned Building Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css" />
+
+<script defer src="js/map.js"></script>
+</head>
+
+<body>
+  <!-- Control Box with Locate Me button and draggable marker -->
+  <div class="control-box">
+    <div class="control-title">Map Controls</div>
+    <button class="locate-me-arrow" id="locate-me" title="Locate Me">➡️</button>
+    <div id="draggable-icon" class="draggable-icon" draggable="true" title="Drag me to the map!"></div>
+  </div>
+
+  <!-- Map Container -->
+  <div id="map"></div>
+
+  <!-- Info Modal for Adding Description and Images -->
+  <div id="info-modal">
+    <div id="modal-content">
+      <button class="close-modal" onclick="closeInfoModal()">✕</button>
+      <h3>Abandoned Building Info</h3>
+      <form id="markerForm">
+        <label for="title">Title (Required):</label>
+        <input type="text" id="title" required style="width: 100%; margin-bottom: 10px;">
+
+        <label for="description">Description:</label>
+        <textarea id="description" required></textarea>
+        
+        <!-- Coordinates Display -->
+        <div id="coords-display">Coordinates: </div>
+
+        <label for="images">Add Images (Max 5):</label>
+        <input type="file" id="images" accept="image/*" multiple required onchange="showImagePreviews()">
+
+        <!-- Image previews container -->
+        <div id="preview-container"></div>
+
+        <button type="button" onclick="submitMarkerForm()">Submit</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
