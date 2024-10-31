@@ -1,62 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Abandoned Building Map</title>
-  <link rel="icon" href="images/logo.ico"> <!-- Other Browsers -->
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abandoned Buildings Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/f4e99edc7c.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script defer src="js/map.js"></script>
 </head>
 <body>
-
-  <!-- Warning Box -->
-  <div id="warning-box">
-    <strong>Warning:</strong> Please do not trespass on private land without the landowner's permission.
-    <button id="understand-button">Yes, I understand</button>
-  </div>
-
-  <!-- Control Box with Locate Me button and draggable marker -->
-  <div class="control-box">
-    <div class="control-title">Map Controls</div>
-    <div class="control-items">
-      <button class="locate-me-arrow" id="locate-me" title="Locate Me">➡️</button>
-      <div id="draggable-icon" class="draggable-icon" draggable="true" title="Drag me to the map!"></div>
+    <div id="warning-box" class="warning-box">
+        <p>Please do not trespass on private land without permission.</p>
+        <button id="understand-button">Yes, I understand</button>
     </div>
-  </div>
 
-  <!-- Map Container -->
-  <div id="map"></div>
+    <div id="map"></div>
 
-  <!-- Info Modal for Adding Description and Images -->
-  <div id="info-modal">
-    <div id="modal-content">
-      <button class="close-modal" onclick="closeInfoModal()">✕</button>
-      <h3>Abandoned Building Info</h3>
-      <form id="markerForm">
-        <label for="title">Title (Required):</label>
-        <input type="text" id="title" required style="width: 100%; margin-bottom: 10px;">
-
-        <label for="description">Description:</label>
-        <textarea id="description" required></textarea>
-        
-        <!-- Coordinates Display -->
-        <div id="coords-display">Coordinates: </div>
-
-        <label for="images">Add Images (Max 5):</label>
-        <input type="file" id="images" accept="image/*" multiple required onchange="showImagePreviews()">
-
-        <!-- Image previews container -->
-        <div id="preview-container"></div>
-
-        <button type="button" onclick="submitMarkerForm()">Submit</button>
-      </form>
+    <div class="control-box">
+        <img src="https://i.imgur.com/r95PqLI.png" alt="Logo" class="logo">
+        <div id="locate-me" class="locate-me">
+            <i class="fa-solid fa-location-arrow"></i>
+        </div>
+        <div id="draggable-icon" draggable="true" class="draggable-icon">
+            <i class="fa-solid fa-location-dot"></i>
+        </div>
     </div>
-  </div>
 
-  <!-- Leaflet JavaScript -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="js/map.js"></script>
+    <div id="info-modal" class="info-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeInfoModal()">✖</span>
+            <h2>Abandoned Building Info</h2>
+            <label for="title">Title (required):</label>
+            <input type="text" id="title" required>
+            <label for="description">Description:</label>
+            <textarea id="description" rows="4" cols="50" style="resize: none;"></textarea>
+            <div id="coords-display"></div>
+            <label for="images">Upload images:</label>
+            <input type="file" id="images" multiple accept="image/*" onchange="showImagePreviews()">
+            <div id="preview-container"></div>
+            <button onclick="submitMarkerForm()">Submit</button>
+        </div>
+    </div>
+
 </body>
 </html>

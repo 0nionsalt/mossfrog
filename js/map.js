@@ -12,29 +12,27 @@ document.getElementById('understand-button').onclick = function() {
 // Initialize the map
 const map = L.map('map').setView([51.505, -0.09], 13);
 
-// Alternative OpenStreetMap Tile Layer (France)
-L.tileLayer('https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+// OpenStreetMap Tile Layer
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-// Custom icon for draggable marker
+// Create a custom marker with the Font Awesome icon
 const customIcon = L.icon({
-  iconUrl: 'https://urbexology.com/imgs/marker-icon.png', // This URL is the original marker icon
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32]
+  iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Location_icon_%28black%29.png', // Change to your desired marker URL
+  iconSize: [30, 30], // Size of the icon
+  iconAnchor: [15, 30], // Point of the icon which will correspond to marker's location
+  popupAnchor: [0, -30] // Point from which the popup should open relative to the iconAnchor
 });
 
 let droppedLatLng;
 const draggableIcon = document.getElementById('draggable-icon');
 
-// Drag start event
 draggableIcon.addEventListener('dragstart', (event) => {
   event.dataTransfer.setData('text/plain', 'dragging');
 });
 
-// Handle map drop to add marker
 map.getContainer().addEventListener('dragover', (event) => {
   event.preventDefault();
 });
@@ -47,6 +45,9 @@ map.getContainer().addEventListener('drop', (event) => {
     event.clientY - mapRect.top
   ]);
 
+  // Add the marker to the map
+  L.marker(droppedLatLng, { icon: customIcon }).addTo(map);
+
   document.getElementById('info-modal').style.display = 'flex';
   document.getElementById('coords-display').innerText = `Coordinates: ${droppedLatLng.lat.toFixed(5)}, ${droppedLatLng.lng.toFixed(5)}`;
 });
@@ -57,16 +58,16 @@ document.getElementById('locate-me').addEventListener('click', () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
       map.setView([latitude, longitude], 13);
-      L.marker([latitude, longitude], { icon: customIcon }).addTo(map).bindPopup('You are here!').openPopup();
+      L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
     }, () => {
-      alert('Geolocation failed. Please allow location access.');
+      alert('Unable to retrieve your location.');
     });
   } else {
     alert('Geolocation is not supported by your browser.');
   }
 });
 
-// Close info modal
+// Close the info modal
 function closeInfoModal() {
   document.getElementById('info-modal').style.display = 'none';
 }
@@ -74,54 +75,81 @@ function closeInfoModal() {
 // Show image previews
 function showImagePreviews() {
   const previewContainer = document.getElementById('preview-container');
-  previewContainer.innerHTML = '';
-  const imagesInput = document.getElementById('images');
-  const files = Array.from(imagesInput.files);
+  previewContainer.innerHTML = ''; // Clear previous previews
+  const files = document.getElementById('images').files;
 
-  files.slice(0, 5).forEach((file, index) => {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const previewWrapper = document.createElement('div');
-      previewWrapper.classList.add('preview-wrapper');
-
-      const img = document.createElement('img');
-      img.src = e.target.result;
-      img.classList.add('preview-image');
-
-      const closeButton = document.createElement('button');
-      closeButton.classList.add('close-preview');
-      closeButton.innerHTML = '✕';
-      closeButton.onclick = () => {
-        files.splice(index, 1);
-        const newFileList = new DataTransfer();
-        files.forEach(file => newFileList.items.add(file));
-        imagesInput.files = newFileList.files;
-        showImagePreviews();
-      };
-
-      previewWrapper.appendChild(img);
-      previewWrapper.appendChild(closeButton);
-      previewContainer.appendChild(previewWrapper);
+  Array.from(files).forEach((file, index) => {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    img.className = 'preview-image';
+    img.onload = function() {
+      URL.revokeObjectURL(this.src); // Free memory
     };
-    reader.readAsDataURL(file);
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'preview-wrapper';
+    wrapper.appendChild(img);
+
+    const closeButton = document.createElement('button');
+    closeButton.className = 'close-preview';
+    closeButton.innerText = '✖'; // Cross sign
+    closeButton.onclick = function() {
+      // Remove this image preview
+      previewContainer.removeChild(wrapper);
+      // Also remove the file from the input
+      const dataTransfer = new DataTransfer();
+      Array.from(document.getElementById('images').files).forEach((file, i) => {
+        if (i !== index) dataTransfer.items.add(file);
+      });
+      document.getElementById('images').files = dataTransfer.files;
+    };
+    
+    wrapper.appendChild(closeButton);
+    previewContainer.appendChild(wrapper);
   });
 }
 
-// Submit marker form
+// Send data to Discord via webhook
+const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL'; // Update with your Discord webhook URL
+
+function sendToDiscord(title, description, coords) {
+  const embed = {
+    title: title,
+    description: description,
+    fields: [
+      {
+        name: 'Coordinates',
+        value: `${coords.lat.toFixed(5)}, ${coords.lng.toFixed(5)}`,
+      }
+    ],
+    footer: {
+      text: "New Marker Submitted"
+    },
+    color: 65280 // Green color in Discord
+  };
+
+  fetch(webhookURL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ embeds: [embed] }),
+  })
+  .then(response => response.json())
+  .then(data => console.log('Success:', data))
+  .catch((error) => console.error('Error:', error));
+}
+
+// Submit the marker form
 function submitMarkerForm() {
-  const title = document.getElementById('title').value.trim();
-  const description = document.getElementById('description').value.trim();
-  const imagesInput = document.getElementById('images');
-  const images = Array.from(imagesInput.files);
+  const title = document.getElementById('title').value;
+  const description = document.getElementById('description').value;
 
   if (!title) {
-    alert('Please enter a title for the abandoned building.');
+    alert('Title is required.');
     return;
   }
 
-  if (droppedLatLng) {
-    const marker = L.marker(droppedLatLng, { icon: customIcon }).addTo(map)
-      .bindPopup(`<strong>${title} (Pending Review)</strong><br>${description}`);
-    closeInfoModal();
-  }
+  sendToDiscord(title, description, droppedLatLng);
+  closeInfoModal();
 }
