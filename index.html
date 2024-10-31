@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Abandoned Building Map</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/style.css" />
-
-<script defer src="js/map.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abandoned Building Map</title>
+  <link rel="icon" href="images/logo.ico"> <!-- Other Browsers -->
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-
 <body>
+
+  <!-- Warning Box -->
+  <div id="warning-box">
+    <strong>Warning:</strong> Please do not trespass on private land without the landowner's permission.
+    <button id="understand-button">Yes, I understand</button>
+  </div>
+
   <!-- Control Box with Locate Me button and draggable marker -->
   <div class="control-box">
     <div class="control-title">Map Controls</div>
-    <button class="locate-me-arrow" id="locate-me" title="Locate Me">➡️</button>
-    <div id="draggable-icon" class="draggable-icon" draggable="true" title="Drag me to the map!"></div>
+    <div class="control-items">
+      <button class="locate-me-arrow" id="locate-me" title="Locate Me">➡️</button>
+      <div id="draggable-icon" class="draggable-icon" draggable="true" title="Drag me to the map!"></div>
+    </div>
   </div>
 
   <!-- Map Container -->
@@ -46,5 +55,8 @@
     </div>
   </div>
 
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="js/map.js"></script>
 </body>
 </html>

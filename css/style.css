@@ -1,132 +1,154 @@
 /* Styles for Map */
 #map {
-    height: 100vh;
-    width: 100vw;
-  }
+  height: 100vh;
+  width: 100vw;
+}
 
-  /* Control Box in the Top Right */
-  .control-box {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 150px;
-    text-align: center;
-    z-index: 1000;
-  }
+/* Control Box styling */
+.control-box {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 150px;
+  text-align: center;
+  z-index: 1000;
+}
 
-  .control-title {
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
+.control-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
 
-  #locate-me {
-    cursor: pointer;
-    font-size: 18px;
-  }
+.control-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  #draggable-icon {
-    width: 24px;
-    height: 24px;
-    background-color: red;
-    border-radius: 50%;
-    cursor: grab;
-  }
+#locate-me {
+  cursor: pointer;
+  font-size: 18px;
+  margin-right: 10px;
+}
 
-  /* Info Modal Styles */
-  #info-modal {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(245, 245, 220, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    z-index: 1001;
-    width: 300px;
-  }
+/* Custom Marker Icon */
+#draggable-icon {
+  width: 24px;
+  height: 24px;
+  background-image: url('https://urbexology.com/imgs/marker-icon.png'); /* Replace this URL with your original marker URL */
+  background-size: contain;
+  cursor: grab;
+}
 
-  #modal-content {
-    position: relative;
-  }
+/* Info Modal Styles */
+#info-modal {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(245, 245, 220, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  width: 300px;
+}
 
-  .close-modal {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: transparent;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
+#modal-content {
+  position: relative;
+}
 
-  .close-modal:hover {
-    transform: scale(1.2);
-    color: red;
-  }
+.close-modal {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
 
-  .close-preview {
-    position: absolute;
-    top: 3px;
-    right: 3px;
-    background: transparent;
-    border: none;
-    font-size: 14px;
-    cursor: pointer;
-    color: white;
-  }
+.close-modal:hover {
+  transform: scale(1.2);
+  color: red;
+}
 
-  /* Image Preview Styles */
-  .preview-wrapper {
-    position: relative;
-    display: inline-block;
-    margin-right: 5px;
-    margin-top: 5px;
-  }
+#preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
 
-  .preview-image {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
+.preview-wrapper {
+  position: relative;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
 
-  /* Fixed size and non-resizable Description box */
-  #description {
-    width: 100%;
-    height: 100px;
-    font-size: 16px;
-    resize: none;
-  }
+.preview-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
-  /* Preview Container */
-  #preview-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 5px;
-  }
+.close-preview {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: red;
+}
 
-  /* Coordinates display */
-  #coords-display {
-    font-size: 14px;
-    margin-top: 10px;
-    color: #333;
-  }
+.close-preview:hover {
+  transform: scale(1.2);
+}
 
-  /* Padding for Submit Button */
-  button {
-    padding: 8px 15px;
-    margin-top: 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-  }
+#coords-display {
+  margin: 10px 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+textarea {
+  width: 100%;
+  height: 60px;
+  resize: none;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+/* Warning box styles */
+#warning-box {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 220, 0.8);
+  padding: 15px;
+  border: 1px solid #ffcc00;
+  border-radius: 10px;
+  z-index: 1002;
+  display: none;
+  width: 300px;
+}
+
+#warning-box button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
