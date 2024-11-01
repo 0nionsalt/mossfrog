@@ -1,53 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MOSSFROG | Urbex Map</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="images/logo.ico"> <!-- Other Browsers -->
-    <link rel="apple-touch-icon" sizes="75x75" href="images/logo.ico"> <!-- Safari Favicon -->
-    <script src="https://kit.fontawesome.com/f4e99edc7c.js" crossorigin="anonymous"></script>
-
+    <title>Abandoned Buildings Map</title>
     <link rel="stylesheet" href="css/style.css">
-    <script defer src="js/map.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
-    <div id="warning-box" class="warning-box">
-        <p>Please do not trespass on private land without permission.</p>
-        <button id="understand-button">Yes, I understand</button>
-    </div>
-
     <div id="map"></div>
 
-    <div class="control-box">
-        <img src="images/logo.webp" alt="Logo" class="logo">
-        <div class="icon-container">
-            <div id="locate-me" class="locate-me">
-                <i class="fa-solid fa-location-arrow"></i>
-                <span class="icon-label">Locate Me</span>
-            </div>
-            <div id="draggable-icon" draggable="true" class="draggable-icon">
-                <i class="fa-solid fa-location-dot"></i>
-                <span class="icon-label">Marker</span>
-            </div>
+    <!-- Top Right Corner Box for Logo and Links -->
+    <div id="top-right-box">
+        <img src="images/logo.webp" alt="Logo" id="logo"> <!-- Update the path to your logo -->
+        <div class="social-links">
+            <a href="https://discord.com" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/discord-logo.png" alt="Discord" class="social-icon">
+            </a>
+            <a href="https://facebook.com" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook" class="social-icon">
+            </a>
         </div>
     </div>
 
-    <div id="info-modal" class="info-modal">
+    <!-- Modal for Input Information -->
+    <div id="info-modal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeInfoModal()">✖</span>
-            <h2>Abandoned Building Info</h2>
-            <label for="title">Title (required):</label>
-            <input type="text" id="title" required>
-            <label for="description">Description:</label>
-            <textarea id="description" rows="4" cols="50" style="resize: none;"></textarea>
-            <div id="coords-display"></div>
-            <label for="images">Upload images:</label>
-            <input type="file" id="images" multiple accept="image/*" onchange="showImagePreviews()">
-            <div id="preview-container"></div>
-            <button onclick="submitMarkerForm()">Submit</button>
+            <span class="close-button">&times;</span>
+            <h3>Enter Information</h3>
+            <label for="info-input">Description:</label>
+            <textarea id="info-input" placeholder="Enter a description..."></textarea>
+
+            <label for="url-input">URL (optional):</label>
+            <input type="url" id="url-input" placeholder="Enter an article URL...">
+
+            <div class="image-upload">
+                <label for="image-upload-1">Upload Image 1:</label>
+                <input type="file" id="image-upload-1" accept="image/*" onchange="previewImage(this, 'image-preview-1')">
+                <div class="image-preview" id="image-preview-1"></div>
+
+                <label for="image-upload-2">Upload Image 2:</label>
+                <input type="file" id="image-upload-2" accept="image/*" onchange="previewImage(this, 'image-preview-2')">
+                <div class="image-preview" id="image-preview-2"></div>
+
+                <label for="image-upload-3">Upload Image 3:</label>
+                <input type="file" id="image-upload-3" accept="image/*" onchange="previewImage(this, 'image-preview-3')">
+                <div class="image-preview" id="image-preview-3"></div>
+            </div>
+
+            <button id="submit-info">Submit</button>
         </div>
     </div>
 
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="js/map.js"></script>
 </body>
 </html>
