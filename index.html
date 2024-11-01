@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://kit.fontawesome.com/f4e99edc7c.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-    <script defer src="js/map.js"></script>
 </head>
 <body>
     <div id="warning-box" class="warning-box">
@@ -21,11 +19,15 @@
 
     <div class="control-box">
         <img src="https://i.imgur.com/r95PqLI.png" alt="Logo" class="logo">
-        <div id="locate-me" class="locate-me">
-            <i class="fa-solid fa-location-arrow"></i>
-        </div>
-        <div id="draggable-icon" draggable="true" class="draggable-icon">
-            <i class="fa-solid fa-location-dot"></i>
+        <div class="icon-container">
+            <div id="locate-me" class="locate-me">
+                <i class="fa-solid fa-location-arrow"></i>
+                <span class="icon-label">Locate Me</span>
+            </div>
+            <div id="draggable-icon" draggable="true" class="draggable-icon">
+                <i class="fa-solid fa-location-dot"></i>
+                <span class="icon-label">Marker</span>
+            </div>
         </div>
     </div>
 
@@ -45,5 +47,6 @@
         </div>
     </div>
 
+    <script src="scripts.js"></script>
 </body>
 </html>

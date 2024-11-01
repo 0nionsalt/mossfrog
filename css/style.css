@@ -50,6 +50,12 @@ body {
   border-radius: 8px;
 }
 
+.icon-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .logo {
   width: 80px;
   margin-bottom: 10px;
@@ -59,17 +65,22 @@ body {
 .draggable-icon {
   cursor: pointer;
   font-size: 24px;
-  margin: 5px 0;
-  border-radius: 5px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  background: none; /* Remove background */
-  padding: 0; /* Remove extra padding */
+  background: none;
+  padding: 0;
 }
 
 .locate-me:hover,
 .draggable-icon:hover {
-  color: #007bff; /* Hover effect for visibility */
-  transform: scale(1.2); /* Slight scale on hover */
+  color: #007bff;
+  transform: scale(1.2);
+}
+
+.icon-label {
+  font-size: 12px;
+  margin-top: 4px;
+  color: #333;
+  text-align: center;
 }
