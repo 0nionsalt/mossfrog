@@ -1,13 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Outfit:wght@551&display=swap');
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  font-family: "Lexend", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 500;
-  font-style: normal;
 }
 
 #map {
@@ -19,7 +13,7 @@ body {
   position: absolute;
   top: 20px; /* Distance from the top */
   right: 20px; /* Distance from the right */
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  background-color: rgba(21, 172, 255, 0.8); /* Updated background color */
   padding: 10px; /* Padding around the box */
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
@@ -40,6 +34,11 @@ body {
 .social-icon {
   width: 30px; /* Set size for social icons */
   margin: 0 5px; /* Space between icons */
+  transition: transform 0.2s; /* Smooth transition for the scaling effect */
+}
+
+.social-icon:hover {
+  transform: scale(1.1); /* Slightly enlarge the icon on hover */
 }
 
 /* Modal Styles */
